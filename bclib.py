@@ -1,22 +1,22 @@
 import hashlib
 import sys
 
-global hasher, printer
+global hasher
 hasher = hashlib.md5()
-printer = "0"
 
-if len(sys.argv) > 3 :
-    printer = sys.argv[3]
-
-def bcFindTarget(hash, target, iteration):
+def bcFindTarget(hash, target, iteration, printbool, stash):
     try:
-        if printer == "1":
-            print(hash)
+        if printbool:
+            print(str(iteration) + ' - ' + hash)
 
-        if(hash == target):
-            print("The target " + target + " was found after " + str(iteration) + " iterations. Hurray !")
-        else:
+        if(hash != target):
+            stash = str(hash)
             hasher.update(hash.encode("utf-8"))
-            bcFindTarget(hasher.hexdigest(), target, iteration +1)
+            bcFindTarget(hasher.hexdigest(), target, iteration +1, printbool, stash)
+
+        else:
+            print("\nThe challenge hash " + target + " was found after " + str(iteration) + " iteration(s). Hurray !")
+            print("It means that the string given to it was : " + stash)
+            
     except:
-        print('It looks like we could not find the hash you were looking for. Please not that Python\'s maximum iterations is 1000.')
+        print('It looks like we could not find the hash you were looking for. Please note that Python\'s maximum iterations is 1000.')
