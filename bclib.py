@@ -2,7 +2,7 @@
 """
 
 #We import hashlib for the md5 hashes
-import hashlib
+import hashlib, sys
 
 #We declare a global variable, allowing us to make our code shorter
 global hasher
@@ -22,7 +22,7 @@ def bcFindTarget(hash, target, iteration, printbool, stash):
     try:
         #If the printing option is enabled, we display the intermediate hash that we calculated
         if printbool:
-            print(str(iteration) + ' - ' + hash)
+            print(str(iteration) + ' - "' + str(hash) + '"')
 
         #If the hash is not equal to our target, we continue processing the hash using recursive programming
         if(hash != target):
@@ -30,8 +30,8 @@ def bcFindTarget(hash, target, iteration, printbool, stash):
             stash = str(hash)
 
             #We then hash the current 'hash' variable and feed it to this function again
-            hasher.update(hash.encode("utf-8"))
-            bcFindTarget(hasher.hexdigest(), target, iteration +1, printbool, stash)
+            hash = hashlib.md5(hash.encode()).hexdigest()
+            bcFindTarget(str(hash), target, iteration +1, printbool, stash)
 
         #If the hash equals the target, we print this message to inform the user that we found it, and display the hash given in input as well.
         else:
@@ -42,3 +42,4 @@ def bcFindTarget(hash, target, iteration, printbool, stash):
     #But this also covers other exception.
     except:
         print('It looks like we could not find the hash you were looking for. Please note that Python\'s maximum iterations is 1000.')
+        print(sys.exc_info())
