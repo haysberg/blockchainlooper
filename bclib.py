@@ -41,5 +41,5 @@ def bcFindTarget(hash, target, iteration, printbool, stash):
     #If we run into an exception, we display this message. Usually, an exception is raised when we iterate more than 1000 on the same function.
     #But this also covers other exception.
     except:
-        print('It looks like we could not find the hash you were looking for. Please note that Python\'s maximum iterations is 1000.')
+        print('It looks like we could not find the hash you were looking for. Please note that Python\'s maximum iterations is 10000.')
         print(sys.exc_info())
