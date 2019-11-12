@@ -4,11 +4,6 @@
 #We import hashlib for the md5 hashes
 import hashlib, sys
 
-#We declare a global variable, allowing us to make our code shorter
-global hasher
-hasher = hashlib.md5()
-
-
 def bcFindTarget(hash, target, iteration, printbool, stash):
     """This is the main processing function to find the challenge hash.
     
@@ -42,4 +37,5 @@ def bcFindTarget(hash, target, iteration, printbool, stash):
     #But this also covers other exception.
     except:
         print('It looks like we could not find the hash you were looking for. Please note that Python\'s maximum iterations is 10000.')
+        print('Please find the full exception trace below : ')
         print(sys.exc_info())
